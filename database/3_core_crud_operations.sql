@@ -15,7 +15,7 @@ ORDER BY name_of_member;
 -- Update books with NULL edition
 UPDATE Books
 SET edition = 1
-WHERE edition = NULL;
+WHERE edition is NULL;
 -- update auhtor country_name
 UPDATE Author
 SET country = 'UK' WHERE country = 'United Kingdom';
@@ -41,8 +41,6 @@ WHERE author_id = 8;
 DELETE FROM Category 
 WHERE category_id = 5;
 
-use library_db;
-select * from category;
 -- Demonstration Inserts
 INSERT INTO Books(title, author_id, edition, category_id, total_copies, available_copies, status)
 VALUES('The Blue Umbrella', 29, 7, 1, 8, 8, 'Available'),

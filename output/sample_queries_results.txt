@@ -1,0 +1,56 @@
+===========================================
+SAMPLE QUERY RESULTS
+Library Management System
+Generated: 2025-11-17
+===========================================
+
+[1] List All Available Books
+--------------------------------------------
+book_id | title                                    | author              | category            | available
+--------|------------------------------------------|---------------------|---------------------|----------
+1       | 1984                                     | George Orwell       | Classic Literature  | 8
+5       | Harry Potter and the Sorcerer's Stone    | J.K. Rowling        | Fantasy             | 10
+7       | The Old Man and the Sea                  | Ernest Hemingway    | Classic Literature  | 5
+(33 rows total)
+
+[2] Top 5 Most Borrowed Books
+--------------------------------------------
+book_id | title                                    | times_borrowed
+--------|------------------------------------------|--------------
+5       | Harry Potter and the Sorcerer's Stone    | 12
+1       | 1984                                     | 8
+23      | A Game of Thrones                        | 6
+(Showing top 5 of 33)
+
+[3] Members with Overdue Books
+--------------------------------------------
+member_id | name_of_member    | title              | days_overdue | projected_fine
+----------|-------------------|--------------------|--------------|---------------
+3         | Sophia Lee        | Harry Potter...    | 5            | $2.50
+5         | Emily Davis       | The Old Man...     | 3            | $1.50
+(2 rows)
+
+[4] Current Borrowing Statistics
+--------------------------------------------
+Metric                  | Value
+------------------------|--------
+Total Books             | 33
+Active Members          | 5
+Books Currently Out     | 6
+Overdue Books           | 2
+Unpaid Fines            | 1
+Total Unpaid Amount     | $50.00
+
+[5] Category Distribution
+--------------------------------------------
+category_name           | total_books | total_borrows
+------------------------|-------------|---------------
+Fiction                 | 8           | 45
+Classic Literature      | 12          | 38
+Fantasy                 | 4           | 35
+Mystery                 | 3           | 22
+(10 categories total)
+
+===========================================
+END OF SAMPLE RESULTS
+===========================================

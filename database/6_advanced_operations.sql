@@ -12,12 +12,11 @@ ORDER BY m.member_id;
 
 -- procedure to handle book borrowing
 DELIMITER $$
-CREATE PROCEDURE borrowBook(p_member_id INT, p_book_id INT)
+CREATE PROCEDURE borrow_book(p_member_id INT, p_book_id INT)
 BEGIN
     DECLARE v_available INT;
-
     -- check availability:
-    SELECT availabile_copies INTO v_available
+    SELECT available_copies INTO v_available
     FROM Books
     WHERE book_id = p_book_id;
 
@@ -26,27 +25,28 @@ BEGIN
         
         -- UPDATE Borrow_records
         INSERT INTO Borrow_Records(member_id, book_id, borrow_date, due_date)
-        VALUE(p_member_id, p_book_id, CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 14 DAY));
+        VALUES(p_member_id, p_book_id, CURRENT_DATE(), DATE_ADD(CURRENT_DATE(), INTERVAL 14 DAY));
 
         -- update book TABLE
         UPDATE Books
         SET available_copies  = available_copies - 1
         WHERE book_id = p_book_id;
+        SELECT 'Book borrowed successfully' AS Message;
     ELSE 
         SELECT 'Book is not available' AS Message;
     END IF;
 END $$
-DELIMITER;
+DELIMITER ;
 
--- call the procedure to let it do its magic
-EXEC borrowBook (p_member_id = 2, p_booK_id =3)
+-- call the procedure to automatically update tables when book is borrowed
+CALL borrow_book(2, 3);
 
 
--- update book status on return
+
+-- procedure to update book status on return
 DELIMITER $$
-
-CREATE PROCEDURE returnBook(p_book_id  INT, p_member_id INT, p_borrow_id INT)
-BEGINd
+CREATE PROCEDURE return_book(p_book_id  INT, p_member_id INT, p_borrow_id INT)
+BEGIN
     -- update Books table
     UPDATE Books
     SET available_copies = available_copies + 1, status = 'Available'
@@ -55,10 +55,15 @@ BEGINd
     -- update Borrow_Records table
     UPDATE Borrow_Records
     SET return_date = CURRENT_DATE(),
-        return_status = CASE WHEN CURRENT_DATE()> due_date THEN 'Overdue' ELSE 'Returned' END
-    WHERE book_id = p_book_id and return_status = 'Pending' AND member_id = p_member_id;
+        return_status = CASE WHEN CURRENT_DATE() > due_date THEN 'Overdue' ELSE 'Returned' END
+    WHERE borrow_id = p_borrow_id;;
 END $$
-DELIMITER;
+DELIMITER ;
+
+-- Call the procedure to automatically upadte the tables when book is returned
+CALL return_book(4, 2, 1);
+
+
 
 -- trigger to calculate fine 
 DELIMITER $$
@@ -66,18 +71,18 @@ CREATE TRIGGER trg_calculate_fine
 AFTER UPDATE ON Borrow_Records
 FOR EACH ROW
 BEGIN
-    -- Run only when a book is returned (not borrowred)
+    DECLARE fine_amt DECIMAL(10, 2);
+    -- Calculate fine only when book status changes from not-returned to returned
     IF OLD.return_status <> 'Returned' AND NEW.return_status ='Returned' THEN
-
-        DECLARE fine_amt DECIMAL(10, 2);
-
+        -- Check if book was returned late
         IF NEW.return_date > NEW.due_date THEN
-        SET fine_amt = DATEDIFF(NEW.return_date, NEW.due_date) * 0.5;
+            -- Calculate fine at $0.50 per day
+            SET fine_amt = DATEDIFF(NEW.return_date, NEW.due_date) * 0.5;
 
-        -- insert values in the  fine TABLE
+        -- Insert fine records
         INSERT INTO Fine(borrow_id, fine_amount, fine_date, payment_status)
         VALUES(NEW.borrow_id, fine_amt, CURRENT_DATE(), 'Unpaid');
         END IF;
     END IF;
 END $$
-DELIMITER;
+DELIMITER ;

@@ -11,9 +11,12 @@ WHERE b.available_copies > 0
 ORDER BY b.title;
 
 -- Update available copies after a book is borrowed
-UPDATE Books SET available_copies = available_copies -1, 
-    staus = CASE WHEN available_copies > 0 THEN 'Available' 
-    WHEN available_copies =0 THEN 'Not available' END
+UPDATE Books 
+SET available_copies = available_copies - 1,
+    status = CASE 
+        WHEN (available_copies - 1) > 0 THEN 'Available'
+        WHEN (available_copies - 1) = 0 THEN 'Not available' 
+    END
 WHERE book_id = 2;
 
 -- Update available copies after a book is returned
@@ -53,7 +56,7 @@ FROM Books;
 
 -- summary table of books based on number of times they are borrowed
 CREATE TABLE Book_Issue_Summary AS
-SELECT b.book_id, b.title, a.name, c.category_name, COUNT(br.borrow_id) AS time_brrowed
+SELECT b.book_id, b.title, a.name, c.category_name, COUNT(br.borrow_id) AS time_borrowed
 FROM Books b
 LEFT JOIN Borrow_Records br ON b.book_id = br.book_id
 JOIN Author a ON b.author_id = a.author_id

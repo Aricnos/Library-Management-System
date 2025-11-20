@@ -1,7 +1,11 @@
+-- File: 1_libmain_schema.sql
+-- Description: defining and creating database schema for the library_manangement_system
+-- Author: Palash Chaudhary
+
 CREATE DATABASE library_db;
 USE library_db;
 
-DROP TABLE IF EXISTS Author;
+
 CREATE TABLE Author (
     author_id INT AUTO_INCREMENT PRIMARY KEY, 
     name VARCHAR(250) NOT NULL,
@@ -9,13 +13,11 @@ CREATE TABLE Author (
     birth_date DATE
 );
 
-DROP TABLE IF EXISTS Category;
 CREATE TABLE Category (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(100) NOT NULL
 );
 
-DROP TABLE IF EXISTS Books;
 CREATE TABLE Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(250) NOT NULL,
@@ -24,12 +26,11 @@ CREATE TABLE Books (
     category_id INT, 
     total_copies INT CHECK (total_copies >= 0),
     available_copies INT CHECK (available_copies >= 0),
-    status VARCHAR(50) CHECK (status in ('Issued', 'Shelf')) DEFAULT 'Shelf',
+    status VARCHAR(50) CHECK (status in ('Available', 'Not available')) DEFAULT 'Available',
     FOREIGN KEY (author_id) REFERENCES Author(author_id) ON DELETE SET NULL,
     FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE SET NULL
 );
 
-DROP TABLE IF EXISTS Members;
 CREATE TABLE Members (
     member_id INT AUTO_INCREMENT PRIMARY KEY,
     name_of_member VARCHAR(250) NOT NULL,
@@ -40,7 +41,6 @@ CREATE TABLE Members (
     status VARCHAR(50)
 );
 
-DROP TABLE IF EXISTS Borrow_Records;
 CREATE TABLE Borrow_Records (
     borrow_id INT AUTO_INCREMENT PRIMARY KEY,
     member_id INT,
@@ -54,7 +54,6 @@ CREATE TABLE Borrow_Records (
 );
 
 -- added fine table for auto-calculate fine feature using trigger
-DROP TABLE IF EXISTS Fine;
 CREATE TABLE Fine(
     fine_id INT AUTO_INCREMENT PRIMARY KEY,
     borrow_id INT NOT NULL,
@@ -63,5 +62,4 @@ CREATE TABLE Fine(
     payment_status ENUM('Paid', 'Unpaid') DEFAULT 'Unpaid',
     payment_date DATE,
     FOREIGN KEY (borrow_id) REFERENCES Borrow_Records(borrow_id) ON DELETE CASCADE
-)
-
+);
