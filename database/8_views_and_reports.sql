@@ -28,7 +28,7 @@ SELECT
     a.name AS author_name,
     c.category_name,
     b.total_copies,
-    b.availabe_copies,
+    b.available_copies,
     (b.total_copies - b.available_copies) AS borrowed_copies
 FROM Books b
 JOIN Author a ON b.author_id = a.author_id

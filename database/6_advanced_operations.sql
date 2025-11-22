@@ -56,7 +56,7 @@ BEGIN
     SET return_date = CURRENT_DATE(),
         return_status = CASE WHEN CURRENT_DATE() > due_date THEN 'Overdue'
                         ELSE 'Returned' END
-    WHERE borrow_id = p_borrow_id;;
+    WHERE borrow_id = p_borrow_id;
 END $$
 DELIMITER ;
 

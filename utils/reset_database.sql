@@ -21,15 +21,15 @@ DROP TABLE IF EXISTS Author;
 
 -- Drop views if they exists
 DROP VIEW IF EXISTS v_currently_borrowed;
-DROP VIEW IF EXISTS v_book_availablity;
+DROP VIEW IF EXISTS v_book_availability;
 DROP VIEW IF EXISTS v_unpaid_fines;
 
 -- Drop procedure if they exists
 DROP PROCEDURE IF EXISTS borrow_book;
-DROP PROCEDURE IF EXISTS return_books;
+DROP PROCEDURE IF EXISTS return_book;
 
 -- Drop triggers if they exists
-DROP TRIGGERS IF EXISTS trg_calculate_fine;
+DROP TRIGGER IF EXISTS trg_calculate_fine;
 
 -- Enable back the foreign key check
 SET FOREIGN_KEY_CHECKS = 1;

@@ -107,11 +107,3 @@ VALUES(1, 1, '2023-09-01', '2023-09-15', '2023-09-10', 'Returned'),
 INSERT INTO Fine(borrow_id, fine_amount, fine_date, payment_status, payment_date)
 VALUES(4, 50.00, '2023-10-10', 'Unpaid', NULL),
 (6, 30.00, '2023-10-05', 'Paid', '2023-10-07');
-
--- 7. Return_status table
-INSERT INTO return_status(borrow_id, book_id, return_date)
-VALUES(1, 1, '2023-09-10'),
-(3, 3, '2023-09-23'),
-(4, 5, '2023-10-15'),
-(5, 6, '2023-09-10'),
-(6, 7, '2023-10-02');
