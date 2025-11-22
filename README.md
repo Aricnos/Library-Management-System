@@ -116,6 +116,7 @@ Library-Management-System/
 │
 ├── docs/
 │   ├── database_schema_diagram.png
+│   ├── query_examples.md
 │   ├── tables_description.md
 │   ├── trigger_flow_diagram.png
 │   └── stored_procedure_logic.md
@@ -127,7 +128,10 @@ Library-Management-System/
 │       ├── books_inventory.png
 │       ├── borrow_records.png
 │       ├── overdue_report.png
-│       └── fine_calculation.png
+│       └── fine_calculation/
+|           ├── before_trigger.png
+|           ├── proc_call.png
+|           └── after_trigger.png
 │
 └── utils/
     └── reset_database.sql
@@ -184,6 +188,17 @@ For more examples, see [Query Examples](docs/query_examples.md).
 ### Triggers
 
 * **Auto Fine Calculation** – Automatically calculates fines when books are returned late
+
+#### Trigger Workflow Demo
+
+Before Return:
+![Before Return](outputs/screenshots/fine_calculation/before_return.png)
+
+Return Call:
+![Procedure Execution](outputs/screenshots/fine_calculation/procedure_execution.png)
+
+After Trigger:
+![After Trigger](outputs/screenshots/fine_calculation/after_trigger.png)
 
 ### Stored Procedures
 

@@ -71,18 +71,19 @@ CREATE TRIGGER trg_calculate_fine
 AFTER UPDATE ON Borrow_Records
 FOR EACH ROW
 BEGIN
-    DECLARE fine_amt DECIMAL(10, 2);
-    -- Calculate fine only when book status changes from not-returned to returned
-    IF OLD.return_status <> 'Returned' AND NEW.return_status ='Returned' THEN
-        -- Check if book was returned late
-        IF NEW.return_date > NEW.due_date THEN
-            -- Calculate fine at $0.50 per day
+    DECLARE fine_amt DECIMAL(10,2);
+
+    -- Only when return_date is filled AND book was returned late
+    IF NEW.return_date IS NOT NULL AND NEW.return_date > NEW.due_date THEN
+
+        -- Calculate fine only if no existing fine record
+        IF NOT EXISTS (SELECT 1 FROM Fine WHERE borrow_id = NEW.borrow_id) THEN
             SET fine_amt = DATEDIFF(NEW.return_date, NEW.due_date) * 0.5;
 
-        -- Insert fine records
-        INSERT INTO Fine(borrow_id, fine_amount, fine_date, payment_status)
-        VALUES(NEW.borrow_id, fine_amt, CURRENT_DATE(), 'Unpaid');
+            INSERT INTO Fine(borrow_id, fine_amount, fine_date, payment_status)
+            VALUES(NEW.borrow_id, fine_amt, CURRENT_DATE(), 'Unpaid');
+
         END IF;
     END IF;
-END $$
+END$$
 DELIMITER ;
