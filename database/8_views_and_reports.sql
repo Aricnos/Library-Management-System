@@ -2,7 +2,7 @@
 -- Description: Create views for commonly used queries
 -- Author: Palash Chaudhary
 
--- view for currently borrowed books
+-- View for currently borrowed books
 CREATE VIEW v_currently_borrowed AS
 SELECT 
     br.borrow_id,
@@ -20,7 +20,7 @@ JOIN Books b ON br.book_id = b.book_id
 JOIN Author a ON b.author_id = a.author_id
 WHERE br.return_status IN ('Pending','Overdue');
 
--- view for book availability
+-- View for book availability
 CREATE VIEW v_book_availability AS
 SELECT
     b.book_id,
@@ -34,7 +34,7 @@ FROM Books b
 JOIN Author a ON b.author_id = a.author_id
 JOIN Category c ON b.category_id = c.category_id;
 
--- view for unpaid fines
+-- View for unpaid fines
 CREATE VIEW v_unpaid_fines AS
 SELECT
     f.fine_id,

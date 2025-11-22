@@ -2,42 +2,40 @@
 -- Description: Basic insert, delete and update queries
 -- Author: Palash Chaudhary
 
--- 1. Simple select queries
 -- View all books order by total_copies
 SELECT * FROM Books
 ORDER BY total_copies DESC;
+
 -- List all members in alphabatical order
 SELECT * FROM Members
 ORDER BY name_of_member;
 
-
--- 2.Conditional or filtered Updates
 -- Update books with NULL edition
 UPDATE Books
 SET edition = 1
 WHERE edition is NULL;
--- update auhtor country_name
+
+-- Update auhtor country_name
 UPDATE Author
-SET country = 'UK' WHERE country = 'United Kingdom';
+SET country = 'UK' 
+WHERE country = 'United Kingdom';
 
-
--- 3. Aggregation queries(Basic 'read' operations)
 -- Count total number of books by category
 SELECT c.category_name, COUNT(*) FROM Books b
 JOIN Category c ON b.category_id = c.category_id
 GROUP BY b.category_id
 ORDER BY COUNT(*) DESC;
+
 -- Count author by country
 SELECT country, COUNT(*) FROM Author
 GROUP BY country
 ORDER BY country;
 
-
---4. Minor maintenance task
--- delete an author by id
+-- Delete an author by id
 DELETE FROM Author
 WHERE author_id = 8;
---delete a category by id
+
+-- Delete a category by id
 DELETE FROM Category 
 WHERE category_id = 5;
 

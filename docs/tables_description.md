@@ -34,20 +34,19 @@ Contains all book categories available in the library system.
 - Support collection analytics
 
 **Sample Categories**
-+--------------------+
-| category_name      |
-+--------------------+
-| Fiction            |
+|Sample Categories|
+|-----------------|
+| Fiction |
 | Classic Literature |
-| Mystery            |
-| Fantasy            |
-| Science Fiction    |
-| Non-fiction        |
-| Biography          |
-| Romance            |
-| Contemporary       |
-| Indian Literature  |
-+--------------------+
+| Mystery |
+| Fantasy |
+| Science Fiction |
+| Non-fiction |
+| Biography |
+| Romance |
+| Contemporary |
+| Indian Literature |
+
 
 ### 3. Books Table
 Central table tracking all books and their availability status.
@@ -158,9 +157,7 @@ Manages overdue fines and payment tracking.
 - Updated to 'Paid' - when payment is processed
 - 'payment_date' is recorded upon payment
 
-
 ## Indexes
-
 For optimal performance, the following indexes are created:
 
 **Books Table:**
@@ -182,7 +179,6 @@ For optimal performance, the following indexes are created:
 - `idx_fine_status` on payment_status
 
 ## Data Integrity
-
 **Referential Integrity:**
 - Foreign keys ensure data consistency
 - CASCADE delete for dependent records

@@ -1,5 +1,5 @@
 -- File: 2_insert_sample_data.sql
--- Description: filling tables with sample data
+-- Description: Filling tables with sample data
 -- Author: Palash Chaudhary
 
 

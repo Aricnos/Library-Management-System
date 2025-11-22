@@ -2,8 +2,8 @@
 -- Description: defining and creating database schema for the library_manangement_system
 -- Author: Palash Chaudhary
 
-CREATE DATABASE library_db;
-USE library_db;
+--CREATE DATABASE library_db;
+--USE library_db;
 
 
 CREATE TABLE Author (
@@ -31,7 +31,7 @@ CREATE TABLE Books (
     FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE SET NULL
 );
 
-CREATE TABLE Members (
+CREATE TABLE Members (  
     member_id INT AUTO_INCREMENT PRIMARY KEY,
     name_of_member VARCHAR(250) NOT NULL,
     email VARCHAR(250) UNIQUE,
@@ -53,7 +53,6 @@ CREATE TABLE Borrow_Records (
     FOREIGN KEY (book_id) REFERENCES Books(book_id) ON DELETE CASCADE
 );
 
--- added fine table for auto-calculate fine feature using trigger
 CREATE TABLE Fine(
     fine_id INT AUTO_INCREMENT PRIMARY KEY,
     borrow_id INT NOT NULL,

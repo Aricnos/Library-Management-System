@@ -42,6 +42,7 @@ ELSE
 END
 
 ### Source Code
+```bash
 DELIMITER $$
 CREATE PROCEDURE borrow_book(p_member_id INT, p_book_id INT)
 BEGIN
@@ -69,10 +70,13 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+```
 
 ### Usage Example
--- Member 2 borrows Book 3
+```bash
+--Member 2 borrows Book 3
 CALL borrow_book(2, 3);
+```
 
 ### Expected Outcomes
 **Success Case:**
@@ -96,7 +100,9 @@ CALL borrow_book(2, 3);
 Handles the book return process including inventory updates, status changes, and automatic overdue detection.
 
 ### Signature
+```bash
 CALL return_book(p_book_id INT, p_member_id INT, p_borrow_id INT);
+```
 
 ### Parameters
 | Parameter | Type | Description |
@@ -126,6 +132,7 @@ Trigger: trg_calculate_fine
 END
 
 ### Source Code
+```bash
 DELIMITER $$
 
 CREATE PROCEDURE return_book(p_book_id  INT, p_member_id INT, p_borrow_id INT)
@@ -142,10 +149,13 @@ BEGIN
     WHERE borrow_id = p_borrow_id;;
 END $$
 DELIMITER ;
+```
 
 ### Usage Example
+```bash
 -- Return Book 4 for Member 2, Borrow ID 1
 CALL return_book(4, 2, 1);
+```
 
 ### Expected Outcomes
 **On-Time Return:**
