@@ -192,13 +192,13 @@ For more examples, see [Query Examples](docs/query_examples.md).
 #### Trigger Workflow Demo
 
 Before Return:
-![Before Return](output\screenshots\fine_calculation\before_trigger.png)
+![Before Return](output/screenshots/fine_calculation/before_trigger.png)
 
 Return Call:
-![Procedure Execution](output\screenshots\fine_calculation\proc_call.png)
+![Procedure Execution](output/screenshots/fine_calculation/proc_call.png)
 
 After Trigger:
-![After Trigger](output\screenshots\fine_calculation\after_trigger.png)
+![After Trigger](output/screenshots/fine_calculation/after_trigger.png)
 
 ### Stored Procedures
 
