@@ -121,7 +121,7 @@ Library-Management-System/
 │   ├── trigger_flow_diagram.png
 │   └── stored_procedure_logic.md
 │
-├── outputs/
+├── output/
 │   ├── sample_queries_results.txt
 │   └── screenshots/
 │       ├── schema_workbench.png
